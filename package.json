@@ -1,0 +1,28 @@
+{
+  "name": "tictactoe",
+  "version": "0.0.1",
+  "description": "Game of tic tac toe created in JavaScript with AI",
+  "main": "./app/app.js",
+  "dependencies": {
+    "babel-loader": "^6.2.1",
+    "babel-core": "^6.4.5",
+    "babel": "^6.3.26",
+    "babel-preset-es2015": "^6.3.13",
+    "webpack": "^1.12.11",
+    "babel-preset-stage-2": "^6.3.13",
+    "lodash.range": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "game",
+    "javascript",
+    "ai",
+    "crosses",
+    "naughts"
+  ],
+  "author": "Nash Vail",
+  "license": "MIT"
+}
