@@ -2,4 +2,9 @@
 // about anything 
 let Board = require('./Board');
 
-console.log(Board.hasWinningCombination());
+console.log(Board.currentState);
+Board.makeMove(1);
+console.log(Board.currentState);
+Board.makeMove(3);
+console.log(Board.currentState);
+
