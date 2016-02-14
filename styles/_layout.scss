@@ -1,0 +1,19 @@
+.board {
+	width: $boardWidth;
+	height: $boardHeight;
+	background-color: black;
+	padding : 0px;
+	margin: 50px auto 0px auto;
+	padding: 2px 0px 0px 2px;
+}
+
+.cell {
+	width: $cellWidth;
+	height: $cellHeight;
+	background-color : #3498db;
+	display: inline-block;
+	&:hover {
+		background-color : black;
+		cursor: pointer;
+	}
+}

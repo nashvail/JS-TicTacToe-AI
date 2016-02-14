@@ -1,11 +1,3 @@
-
-// Extending array prototype to check for identical values in an array
-Array.prototype.hasIdenticalValues = function() {
-	for( var i = 1; i < this.length; i++)
-		if( this[0] !== this[i] || !this[i]) return false;
-	return true;
-};
-
 // File exports a Board object
 module.exports = {
 	// The state of the board is defined like this 
@@ -58,7 +50,7 @@ module.exports = {
 		return false;
 	},
 
-	gameOver() {
+	isGameOver() {
 		return this.hasWinningCombination() || this.allCellsHaveBeenPlayed();
 	},
 

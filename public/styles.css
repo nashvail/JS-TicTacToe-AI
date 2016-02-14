@@ -30,4 +30,24 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+.board {
+  width: 650px;
+  height: 650px;
+  background-color: black;
+  padding: 0px;
+  margin: 50px auto 0px auto;
+  padding: 2px 0px 0px 2px; }
+
+.cell {
+  width: 214.66667px;
+  height: 214.66667px;
+  background-color: #3498db;
+  display: inline-block; }
+  .cell:hover {
+    background-color: black;
+    cursor: pointer; }
+
+html, body {
+  font-size: 62.5%; }
+
 /*# sourceMappingURL=styles.css.map */
