@@ -65,6 +65,10 @@ module.exports = {
 
 	toggleCurrentSymbolBeingPlayed() {
 		this.currentSymbolBeingPlayed = Number(!this.currentSymbolBeingPlayed);
+	},
+
+	symbolToBePlayed() {
+		return ['O', 'X'][this.currentSymbolBeingPlayed];
 	}
 
 };
