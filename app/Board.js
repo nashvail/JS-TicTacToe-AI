@@ -17,12 +17,18 @@ module.exports = {
 	// a) cellIndex -> The index of the cell at which the move is to be made 
 	makeMove(cellIndex) {
 		// First we will have to check if the cell is empty or not 
-		if(!this.cellHasBeenPlayed(cellIndex)) 
-			this.currentState[cellIndex] = ['o', 'x'][this.currentSymbolBeingPlayed];
-		else
-			console.log('The cell already has a value and cannot be reset');
+		let symbolToBePlayed = ['O', 'X'][this.currentSymbolBeingPlayed];
+		
+		if(!this.cellHasBeenPlayed(cellIndex)) {
+			this.currentState[cellIndex] = symbolToBePlayed;
+		} else {
+			return this.currentState[cellIndex];
+		}
 
+		if(this.isGameOver()) console.log('Game over');
 		this.toggleCurrentSymbolBeingPlayed();
+		console.dir(this.currentState);
+		return symbolToBePlayed;
 	},
 
 	// Given an index of a cell on the board 
@@ -38,7 +44,10 @@ module.exports = {
 		// or the next thing I could go through each one of the states and check if I went through numCells number of cells
 		// and that each one of the cell holds a value 	
 		// For now let us stick with the simpler version if we run into something we are going to change it alright ? 
-		return (this.currentState.length === this.numCells);
+		// Now there this javascript quirk pops its head up see if you directly went ahead and clicked on the last cell
+		// or played the last cell in other words the length of the currentState will become 9 since you know JS. And that is 
+		// a bug and we need to get rid of that. So we'll be getting rid of the code below alright?
+		return (this.currentState.filter((val) => val !== undefined).length === this.numCells);
 	},
 
 	hasWinningCombination() {
