@@ -27,8 +27,13 @@ module.exports = {
 
 		if(this.isGameOver()) console.log('Game over');
 		this.toggleCurrentSymbolBeingPlayed();
-		console.dir(this.currentState);
 		return symbolToBePlayed;
+	},
+
+	retractMove(cellIndex) {
+		// Only retract the move if the current cell has not been played before 
+		if( !this.cellHasBeenPlayed(cellIndex) ) 
+			this.currentState[cellIndex] = undefined;
 	},
 
 	// Given an index of a cell on the board 

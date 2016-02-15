@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
+	window.retractMove = retractMove;
 	// You can simply begin writing javascript and webpack has all the backdoors covered for you no need to worry 
 	// about anything 
 	let Board = require('./Board');
@@ -20,16 +21,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			let currentCell = cells[cellIndex];
 
 			currentCell.addEventListener('click', () => {
-				makeMove(cellIndex);
+				if( !Board.isGameOver() )
+					makeMove(cellIndex);
 			});
 
 			currentCell.addEventListener('mouseenter', () => {
-				if( !Board.cellHasBeenPlayed(cellIndex) )
+				if( !Board.cellHasBeenPlayed(cellIndex) && !Board.isGameOver() ) 
 					highlightCellWithCurrentSymbol(cellIndex);
+
 			});
 
 			currentCell.addEventListener('mouseleave', () => {
-				if( !Board.cellHasBeenPlayed(cellIndex) )
+				if( !Board.cellHasBeenPlayed(cellIndex) && !Board.isGameOver() )
 					removeHighlightAndSymbolFromCell(cellIndex);
 			});
 
@@ -45,6 +48,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		addSymbolToCell(cellIndex, Board.makeMove(cellIndex));
 		highlightCell(cellIndex);
 	}
+
+	function retractMove(cellIndex) {
+		Board.retractMove(cellIndex);
+		removeHighlightAndSymbolFromCell(cellIndex);
+	}
+
 
 	function highlightCell(cellIndex) {
 		cells[cellIndex].classList.add('played');
