@@ -7,7 +7,7 @@ module.exports = {
 	// c) Initially all of the cells have 0 state => empty
 	currentState: [],
 	// Number of cells in the board, traditionally there are 9 cells on the board, don't try to muck around with that ya know.
-	numCells: 9, 
+	numCells: 9,
 	// The current symbol being played is either 1('x') or 0('o') and toggles on every turn 
 	// We will start with 'x' as the first symbol being played 
 	currentSymbolBeingPlayed: 1,

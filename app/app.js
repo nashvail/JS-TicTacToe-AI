@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	let board = document.querySelector('.board');
 	let cells = document.querySelectorAll('.cell');
 
-	// Bind click listener to each of the cells
+	// Bind event listeners to the cells
 	for(let cellIndex in cells) {
 		if( cells.hasOwnProperty(cellIndex) ) {
 			let currentCell = cells[cellIndex];
