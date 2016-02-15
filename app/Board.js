@@ -31,9 +31,7 @@ module.exports = {
 	},
 
 	retractMove(cellIndex) {
-		// Only retract the move if the current cell has not been played before 
-		if( !this.cellHasBeenPlayed(cellIndex) ) 
-			this.currentState[cellIndex] = undefined;
+		delete this.currentState[cellIndex];
 	},
 
 	// Given an index of a cell on the board 
