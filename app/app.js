@@ -37,6 +37,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 	}
 
+	// We will have to find a way to switch between user move and waiting for the computer to make a move
+
 	// Utitity functions
 
 	// Makes the move on the board

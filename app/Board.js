@@ -36,7 +36,11 @@ module.exports = {
 		}
 
 		// Checks if the move results in game over 
-		if(this.gameOver()) console.log('Game over');
+		if(this.gameOver()){ 
+			console.log('Game over');
+			console.log(this.symbolToBePlayed() + ' wins');
+		}
+
 		this._toggleCurrentSymbolBeingPlayed();
 		return symbolToBePlayed;
 	},
