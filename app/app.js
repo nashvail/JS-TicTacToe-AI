@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	// Makes the move on the board
 	// also updates the UI to reflect the same 
+	function makeMove(cellIndex) {
 		addSymbolToCell(cellIndex, Board.makeMove(cellIndex));
 		highlightCell(cellIndex);
 	}
@@ -58,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	function highlightCell(cellIndex) {
 		cells[cellIndex].classList.add('played');
 	}
-	
+
 	function addSymbolToCell(cellIndex, symbol) {
 		cells[cellIndex].children[0].innerHTML = symbol;
 	}
