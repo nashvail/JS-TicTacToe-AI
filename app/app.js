@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
 
-	// You can simply begin writing javascript and webpack has all the backdoors covered for you no need to worry 
-	// about anything 
 	let Board = require('./Board');
 
 	// Extending array prototype to check for identical values in an array
@@ -40,25 +38,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 
 	// Utitity functions
-	/*
-	* Updates the state of the board as well as the UI to match the state of the board.
-	*/
-	function makeMove(cellIndex) {
-		// Make the move on the board
+
+	// Makes the move on the board
+	// also updates the UI to reflect the same 
 		addSymbolToCell(cellIndex, Board.makeMove(cellIndex));
 		highlightCell(cellIndex);
 	}
 
+	// Retracts a move from the board
+	// also updates UI to reflect the same.
 	function retractMove(cellIndex) {
 		Board.retractMove(cellIndex);
 		removeHighlightAndSymbolFromCell(cellIndex);
 	}
 
 
+	// Given the index of the cell
+	// Highlights it.
 	function highlightCell(cellIndex) {
 		cells[cellIndex].classList.add('played');
 	}
-
+	
 	function addSymbolToCell(cellIndex, symbol) {
 		cells[cellIndex].children[0].innerHTML = symbol;
 	}
