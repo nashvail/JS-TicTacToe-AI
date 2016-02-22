@@ -19,18 +19,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			let currentCell = cells[cellIndex];
 
 			currentCell.addEventListener('click', () => {
-				if( !Board.isGameOver() )
+				if( !Board.gameOver() )
 					makeMove(cellIndex);
 			});
 
 			currentCell.addEventListener('mouseenter', () => {
-				if( !Board.cellHasBeenPlayed(cellIndex) && !Board.isGameOver() ) 
+				if( !Board.cellHasBeenPlayed(cellIndex) && !Board.gameOver() ) 
 					highlightCellWithCurrentSymbol(cellIndex);
 
 			});
 
 			currentCell.addEventListener('mouseleave', () => {
-				if( !Board.cellHasBeenPlayed(cellIndex) && !Board.isGameOver() )
+				if( !Board.cellHasBeenPlayed(cellIndex) && !Board.gameOver() )
 					removeHighlightAndSymbolFromCell(cellIndex);
 			});
 

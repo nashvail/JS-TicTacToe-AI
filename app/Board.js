@@ -36,8 +36,8 @@ module.exports = {
 		}
 
 		// Checks if the move results in game over 
-		if(this.isGameOver()) console.log('Game over');
-		this.toggleCurrentSymbolBeingPlayed();
+		if(this.gameOver()) console.log('Game over');
+		this._toggleCurrentSymbolBeingPlayed();
 		return symbolToBePlayed;
 	},
 
@@ -71,13 +71,13 @@ module.exports = {
 
 	// Game over is declared either when there is a winning combination on the board
 	// or all the cells on the board have been played.
-	isGameOver() {
+	gameOver() {
 		return this.hasWinningCombination() || this.allCellsHaveBeenPlayed();
 	},
 
 	// Since after each move on the board the symbol that is being played switches
 	// between 'O' and 'X', this function takes care of doing that.
-	toggleCurrentSymbolBeingPlayed() {
+	_toggleCurrentSymbolBeingPlayed() {
 		this.currentSymbolBeingPlayed = Number(!this.currentSymbolBeingPlayed);
 	},
 
