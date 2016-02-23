@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
 
 	let Board = require('./Board');
+	let _ = require('lodash');
 
 	// Extending array prototype to check for identical values in an array
 	Array.prototype.hasIdenticalValues = function() {
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 			currentCell.addEventListener('click', () => {
 				if( !Board.gameOver() )
-					makeMove(cellIndex);
+					makeHumanPlayerMove(cellIndex);
 			});
 
 			currentCell.addEventListener('mouseenter', () => {
@@ -40,6 +41,37 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// We will have to find a way to switch between user move and waiting for the computer to make a move
 
 	// Utitity functions
+
+	// When a click is registered on a cell this means that a human has made the move
+	// because a computer can't fucking click, you know what I mean here right ? 
+	function makeHumanPlayerMove(cellIndex) {
+		// Make the move on the board 
+		makeMove(cellIndex);
+
+		// Now that the human has made the move we will make the computer make the move 
+		// only if the game is not over yet 
+		if( !Board.gameOver() )
+			makeComputerPlayerMove(cellIndex);
+		else
+			console.log('The game is over')
+	}
+
+	function makeComputerPlayerMove(cellIndex) {
+
+		// Let us first grab all the available moves that the computer has 
+		let availableMoves = _.range(Board.numCells).map((currentIndex) => (!Board.cellHasBeenPlayed(currentIndex) ? currentIndex : [][0]))
+			.filter((val) => val !== undefined);
+
+		// Let us make the computer pick a random value from the array 
+		let randomMove = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+		makeMove(randomMove);
+
+		// In the end we will check if the game is over and then do the rest 
+		// Once the computer has made the move we will take care of that here 
+		if( Board.gameOver() )
+			console.log('The game is over');
+
+	}
 
 	// Makes the move on the board
 	// also updates the UI to reflect the same 
