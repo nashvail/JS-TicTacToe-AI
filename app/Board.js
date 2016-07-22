@@ -64,8 +64,16 @@ module.exports = {
 	// Returns an array containing index of cells that has not be played 
 	// yet and are available for move
 	availableMoves() {
-		return _.range(this.numCells).map((currentIndex) => (!this.cellHasBeenPlayed(currentIndex) ? currentIndex : [][0]))
-			.filter((val) => val !== undefined);
+		let availableMoves = [];
+		for(let cellIndex = 0; cellIndex < this.numCells; cellIndex++) {
+			if(!this.cellHasBeenPlayed(cellIndex)) {
+				availableMoves.push(cellIndex);
+			}	 
+		}
+		// return _.range(this.numCells).map((currentIndex) => (!this.cellHasBeenPlayed(currentIndex) ? currentIndex : [][0]))
+			// .filter((val) => val !== undefined);
+
+		return availableMoves;
 	},
 
 	// Given an index of a cell on the board 

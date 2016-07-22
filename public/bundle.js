@@ -59,10 +59,6 @@
 		};
 
 		// AI constants
-		var WINNING_POSITION = 1000;
-		var LOSING_POSITION = -WINNING_POSITION;
-		var MAX_DEPTH = 15;
-
 		var computerChoice = undefined;
 
 		// Selecting the DOM elements
@@ -101,7 +97,7 @@
 		}
 
 		function makeComputerPlayerMove() {
-			minimax(0); // Passing in a copy of object
+			minimax(0);
 			makeMove(computerChoice);
 
 			if (Board.gameOver()) console.log('The game is over');
@@ -145,7 +141,6 @@
 					Board.makeMove(move);
 					scores.push(minimax(depth));
 					moves.push(move);
-					console.log(scores, moves);
 					Board.retractMove(move);
 				}
 			} catch (err) {
@@ -220,7 +215,7 @@
 		}
 
 		function drawBoard(currentState) {
-			console.log((currentState[0] || '') + ' | ' + (currentState[1] || '') + ' | ' + (currentState[2] || '') + '\n\t\t\t--------------------------------------------------------------\n\t\t\t ' + (currentState[3] || '') + ' | ' + (currentState[4] || '') + ' | ' + (currentState[5] || '') + '\n\t\t\t--------------------------------------------------------------\n\t\t\t ' + (currentState[6] || '') + ' | ' + (currentState[7] || '') + ' | ' + (currentState[8] || ''));
+			console.log((currentState[0] || '') + ' | ' + (currentState[1] || '') + ' | ' + (currentState[2] || '') + ' \n\n\t\t\t--------------------------------------------------------------\n\t\t\t ' + (currentState[3] || '') + ' | ' + (currentState[4] || '') + ' | ' + (currentState[5] || '') + ' \n\n\t\t\t--------------------------------------------------------------\n\t\t\t ' + (currentState[6] || '') + ' | ' + (currentState[7] || '') + ' | ' + (currentState[8] || ''));
 		}
 	});
 
@@ -296,13 +291,16 @@
 		// Returns an array containing index of cells that has not be played
 		// yet and are available for move
 		availableMoves: function availableMoves() {
-			var _this = this;
+			var availableMoves = [];
+			for (var cellIndex = 0; cellIndex < this.numCells; cellIndex++) {
+				if (!this.cellHasBeenPlayed(cellIndex)) {
+					availableMoves.push(cellIndex);
+				}
+			}
+			// return _.range(this.numCells).map((currentIndex) => (!this.cellHasBeenPlayed(currentIndex) ? currentIndex : [][0]))
+			// .filter((val) => val !== undefined);
 
-			return _.range(this.numCells).map(function (currentIndex) {
-				return !_this.cellHasBeenPlayed(currentIndex) ? currentIndex : [][0];
-			}).filter(function (val) {
-				return val !== undefined;
-			});
+			return availableMoves;
 		},
 
 		// Given an index of a cell on the board
@@ -321,12 +319,12 @@
 
 		// Checks if the board currently has a winning combination
 		hasWinningCombination: function hasWinningCombination() {
-			var _this2 = this;
+			var _this = this;
 
 			for (var i = 0; i < this.winningCombinations.length; i++) {
 				var combination = this.winningCombinations[i];
 				var symbolsArray = combination.map(function (cellIndex) {
-					return _this2.currentState[cellIndex];
+					return _this.currentState[cellIndex];
 				});
 				if (symbolsArray.hasIdenticalValues()) return true;
 			}

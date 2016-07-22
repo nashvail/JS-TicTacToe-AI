@@ -11,10 +11,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	};
 
 	// AI constants
-	const WINNING_POSITION = 1000;
-	const LOSING_POSITION = -WINNING_POSITION;
-	const MAX_DEPTH = 15;
-
 	let computerChoice;
 
 	// Selecting the DOM elements
@@ -56,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 
 	function makeComputerPlayerMove() {
-		minimax(0); // Passing in a copy of object
+		minimax(0); 
 		makeMove(computerChoice);
 
 		if( Board.gameOver() )
@@ -96,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     	Board.makeMove(move);
     	scores.push(minimax(depth));
     	moves.push(move);
-    	console.log(scores, moves);
     	Board.retractMove(move);
     }
 
@@ -161,9 +156,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	function drawBoard(currentState) {
 		console.log(
-			`${currentState[0] || ''} | ${currentState[1] || ''} | ${currentState[2] || ''}
+			`${currentState[0] || ''} | ${currentState[1] || ''} | ${currentState[2] || ''} \n
 			--------------------------------------------------------------
-			 ${currentState[3] || ''} | ${currentState[4] || ''} | ${currentState[5] || ''}
+			 ${currentState[3] || ''} | ${currentState[4] || ''} | ${currentState[5] || ''} \n
 			--------------------------------------------------------------
 			 ${currentState[6] || ''} | ${currentState[7] || ''} | ${currentState[8] || ''}`
 		);
