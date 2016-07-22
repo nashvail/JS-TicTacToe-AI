@@ -1,3 +1,6 @@
+// Lodash
+let _ = require('lodash');
+
 // Represents the Tic Tac Toe Board
 
 module.exports = {
@@ -18,6 +21,9 @@ module.exports = {
 	// We will start with 'X' as the first symbol being played 
 	currentSymbolBeingPlayed: 1,
 
+	// If human player wins winner = 1, computer = 0 and for no winners winner is -1
+	winner: -1,
+
 	// Think of the board with 9 cells as a 3x3 matrix, the following array holds the indicies in which if 
 	// the symbols are same the game is over with a winner
 	winningCombinations: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]],
@@ -37,8 +43,10 @@ module.exports = {
 
 		// Checks if the move results in game over 
 		if(this.gameOver()){ 
-			console.log('Game over');
-			console.log(this.symbolToBePlayed() + ' wins');
+			// console.log('Game over');
+			// console.log(this.symbolToBePlayed() + ' wins');
+			if(!this.isTie())
+				this.winner = this.currentSymbolBeingPlayed;
 		}
 
 		this._toggleCurrentSymbolBeingPlayed();
@@ -49,6 +57,15 @@ module.exports = {
 	// symbol played at cellIndex in the currentState array
 	retractMove(cellIndex) {
 		delete this.currentState[cellIndex];
+		// Let us just leave it over here
+		this._toggleCurrentSymbolBeingPlayed()
+	},
+
+	// Returns an array containing index of cells that has not be played 
+	// yet and are available for move
+	availableMoves() {
+		return _.range(this.numCells).map((currentIndex) => (!this.cellHasBeenPlayed(currentIndex) ? currentIndex : [][0]))
+			.filter((val) => val !== undefined);
 	},
 
 	// Given an index of a cell on the board 
@@ -77,6 +94,15 @@ module.exports = {
 	// or all the cells on the board have been played.
 	gameOver() {
 		return this.hasWinningCombination() || this.allCellsHaveBeenPlayed();
+	},
+
+	isTie() {
+		return this.allCellsHaveBeenPlayed() && !this.hasWinningCombination();
+	},
+
+	// Returns the current player string representation 
+	currentPlayer() {
+		return ['Computer', 'Human'][this.currentSymbolBeingPlayed];
 	},
 
 	// Since after each move on the board the symbol that is being played switches

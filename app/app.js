@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		return true;
 	};
 
+	// AI constants
+	const WINNING_POSITION = 1000;
+	const LOSING_POSITION = -WINNING_POSITION;
+	const MAX_DEPTH = 15;
+
+	let computerChoice;
+
 	// Selecting the DOM elements
 	let board = document.querySelector('.board');
 	let cells = document.querySelectorAll('.cell');
@@ -38,39 +45,75 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 	}
 
-	// We will have to find a way to switch between user move and waiting for the computer to make a move
-
 	// Utitity functions
 
-	// When a click is registered on a cell this means that a human has made the move
-	// because a computer can't fucking click, you know what I mean here right ? 
 	function makeHumanPlayerMove(cellIndex) {
-		// Make the move on the board 
 		makeMove(cellIndex);
-
-		// Now that the human has made the move we will make the computer make the move 
-		// only if the game is not over yet 
 		if( !Board.gameOver() )
-			makeComputerPlayerMove(cellIndex);
+			makeComputerPlayerMove();
 		else
 			console.log('The game is over')
 	}
 
-	function makeComputerPlayerMove(cellIndex) {
+	function makeComputerPlayerMove() {
+		minimax(0); // Passing in a copy of object
+		makeMove(computerChoice);
 
-		// Let us first grab all the available moves that the computer has 
-		let availableMoves = _.range(Board.numCells).map((currentIndex) => (!Board.cellHasBeenPlayed(currentIndex) ? currentIndex : [][0]))
-			.filter((val) => val !== undefined);
-
-		// Let us make the computer pick a random value from the array 
-		let randomMove = availableMoves[Math.floor(Math.random() * availableMoves.length)];
-		makeMove(randomMove);
-
-		// In the end we will check if the game is over and then do the rest 
-		// Once the computer has made the move we will take care of that here 
 		if( Board.gameOver() )
 			console.log('The game is over');
+	}
 
+	// Checks for available moves on the board and then return a random cell that can be played
+	function randomMove() {
+		let availableMoves = Board.availableMoves();
+		return availableMoves[Math.floor(Math.random() * availableMoves.length)];
+	}
+
+	function evaluatePosition(depth) {
+		// if it's a tie
+		if(Board.isTie()) {
+			return 0;
+		} else if (Board.winner === 1) {
+			return depth - 10;
+		} else if (Board.winner === 0) {
+			return 10 - depth;
+		} 
+	}
+
+		// The minimax algorithm 
+	function minimax(depth) {
+		if(Board.gameOver()) 
+			return evaluatePosition(depth);
+
+    depth++; // increase the depth
+    var scores = [];
+    var moves = [];
+
+
+    var availableMoves = Board.availableMoves();
+
+    for(var move of availableMoves) {
+    	Board.makeMove(move);
+    	scores.push(minimax(depth));
+    	moves.push(move);
+    	console.log(scores, moves);
+    	Board.retractMove(move);
+    }
+
+    var max_score, max_score_index, min_score,
+            min_score_index;
+    if (Board.currentPlayer() === 'Computer') {
+      max_score = Math.max.apply(Math, scores);
+      max_score_index = scores.indexOf(max_score);
+      computerChoice = moves[max_score_index];
+      return scores[max_score_index];
+
+    } else {
+      min_score = Math.min.apply(Math, scores);
+      min_score_index = scores.indexOf(min_score);
+      computerChoice = moves[min_score_index];
+      return scores[min_score_index];
+    }
 	}
 
 	// Makes the move on the board
@@ -114,6 +157,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	function removeSymbolFromCell(cellIndex) {
 		cells[cellIndex].children[0].innerHTML = '';
+	}
+
+	function drawBoard(currentState) {
+		console.log(
+			`${currentState[0] || ''} | ${currentState[1] || ''} | ${currentState[2] || ''}
+			--------------------------------------------------------------
+			 ${currentState[3] || ''} | ${currentState[4] || ''} | ${currentState[5] || ''}
+			--------------------------------------------------------------
+			 ${currentState[6] || ''} | ${currentState[7] || ''} | ${currentState[8] || ''}`
+		);
 	}
 
 });
