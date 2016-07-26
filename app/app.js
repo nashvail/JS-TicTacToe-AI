@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 
 	function evaluatePosition(depth) {
-		// if it's a tie
 		if(Board.isTie()) {
 			return 0;
 		} else if (Board.winner === 1) {
@@ -81,10 +80,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if(Board.gameOver()) 
 			return evaluatePosition(depth);
 
-    depth++; // increase the depth
+    depth++;
     var scores = [];
     var moves = [];
-
 
     var availableMoves = Board.availableMoves();
 
@@ -102,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       max_score_index = scores.indexOf(max_score);
       computerChoice = moves[max_score_index];
       return scores[max_score_index];
-
     } else {
       min_score = Math.min.apply(Math, scores);
       min_score_index = scores.indexOf(min_score);
@@ -153,15 +150,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	function removeSymbolFromCell(cellIndex) {
 		cells[cellIndex].children[0].innerHTML = '';
 	}
-
-	function drawBoard(currentState) {
-		console.log(
-			`${currentState[0] || ''} | ${currentState[1] || ''} | ${currentState[2] || ''} \n
-			--------------------------------------------------------------
-			 ${currentState[3] || ''} | ${currentState[4] || ''} | ${currentState[5] || ''} \n
-			--------------------------------------------------------------
-			 ${currentState[6] || ''} | ${currentState[7] || ''} | ${currentState[8] || ''}`
-		);
-	}
-
 });

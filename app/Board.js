@@ -90,7 +90,7 @@ module.exports = {
 
 	// Checks if the board currently has a winning combination
 	hasWinningCombination() {
-		for( var i = 0 ; i < this.winningCombinations.length; i++ ) {
+		for( let i = 0 ; i < this.winningCombinations.length; i++ ) {
 			let combination = this.winningCombinations[i];
 			let symbolsArray = combination.map((cellIndex) => this.currentState[cellIndex]);
 			if( symbolsArray.hasIdenticalValues() ) return true;

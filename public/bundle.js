@@ -110,7 +110,6 @@
 		}
 
 		function evaluatePosition(depth) {
-			// if it's a tie
 			if (Board.isTie()) {
 				return 0;
 			} else if (Board.winner === 1) {
@@ -124,7 +123,7 @@
 		function minimax(depth) {
 			if (Board.gameOver()) return evaluatePosition(depth);
 
-			depth++; // increase the depth
+			depth++;
 			var scores = [];
 			var moves = [];
 
@@ -212,10 +211,6 @@
 
 		function removeSymbolFromCell(cellIndex) {
 			cells[cellIndex].children[0].innerHTML = '';
-		}
-
-		function drawBoard(currentState) {
-			console.log((currentState[0] || '') + ' | ' + (currentState[1] || '') + ' | ' + (currentState[2] || '') + ' \n\n\t\t\t--------------------------------------------------------------\n\t\t\t ' + (currentState[3] || '') + ' | ' + (currentState[4] || '') + ' | ' + (currentState[5] || '') + ' \n\n\t\t\t--------------------------------------------------------------\n\t\t\t ' + (currentState[6] || '') + ' | ' + (currentState[7] || '') + ' | ' + (currentState[8] || ''));
 		}
 	});
 
